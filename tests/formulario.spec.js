@@ -153,6 +153,40 @@ test.describe('Pruebas de DemoQA', () => {
     expect(filasRellenas).toBe(0);
   });
 
+  test('Comprobar Imagen', async ({ page }) => {
+    // Paso 1: Navegar a la página
+    await page.goto('https://demoqa.com/text-box');
+    
+    // Paso 2: Verificar que estamos en la página correcta
+    await expect(page.locator('h1')).toContainText('Text Box');
+    await page.getByText('Broken Links - Images').click();
+    await expect(page.locator('h1')).toContainText('Broken Links - Images');
+    
+    // Paso 3: Verificar resultados
+    // Esperar a que haya imágenes en la página
+    await page.waitForSelector('img');
+      
+    const imagenesInfo = await page.$$eval('img', imgs =>
+      imgs.map(img => ({
+        src: img.getAttribute('src'),
+        completa: img.complete,
+        naturalWidth: img.naturalWidth,
+        rota: !img.complete || img.naturalWidth === 0
+      }))
+    );
+    
+    // Mostrar resultados en consola
+    console.log('📷 Estado de las imágenes:');
+    imagenesInfo.forEach((img, index) => {
+      if (img.rota) {
+        console.log(`❌ Imagen rota [${index}]: ${img.src}`);
+      } else {
+        console.log(`✅ Imagen OK   [${index}]: ${img.src}`);
+      }
+    });
+
+  });
+
 });
 
 
