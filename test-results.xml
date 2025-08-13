@@ -1,9 +1,9 @@
-<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="11.854091">
-<testsuite name="formulario.spec.js" timestamp="2025-08-13T10:30:06.404Z" hostname="chromium" tests="1" failures="0" skipped="0" time="8.741" errors="0">
-<testcase name="Pruebas de DemoQA › espera a que cambie el color y que otro botón sea visible" classname="formulario.spec.js" time="8.741">
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="16.869476">
+<testsuite name="formulario.spec.js" timestamp="2025-08-13T11:00:06.347Z" hostname="chromium" tests="1" failures="0" skipped="0" time="13.09" errors="0">
+<testcase name="Pruebas de DemoQA › Alerts" classname="formulario.spec.js" time="13.09">
 <system-out>
 <![CDATA[
-[[ATTACHMENT|test-results/formulario-Pruebas-de-Demo-1f96f--que-otro-botón-sea-visible-chromium/trace.zip]]
+[[ATTACHMENT|test-results/formulario-Pruebas-de-DemoQA-Alerts-chromium/trace.zip]]
 ]]>
 </system-out>
 </testcase>

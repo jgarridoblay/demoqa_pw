@@ -282,6 +282,46 @@ test('Dynamic Properties', async ({ page }) => {
   await expect(visibleAfterButton).toBeVisible();
 });
 
+test('Alerts', async ({ page }) => {
+  await page.goto('https://demoqa.com/alerts');
+
+  // 1. Alerta inmediata
+  page.once('dialog', async dialog => {
+    expect(dialog.type()).toBe('alert');
+    expect(dialog.message()).toBe('You clicked a button');
+    await dialog.accept();
+  });
+  await page.click('#alertButton');
+
+  // 2. Alerta con retardo
+const [dialog] = await Promise.all([
+  page.waitForEvent('dialog'), // Espera a que aparezca el diálogo
+  page.click('#timerAlertButton'), // Dispara la alerta con retardo
+]);
+
+expect(dialog.message()).toBe('This alert appeared after 5 seconds');
+await dialog.accept();
+
+  // 3. Confirm box
+  page.once('dialog', async dialog => {
+    expect(dialog.type()).toBe('confirm');
+    expect(dialog.message()).toBe('Do you confirm action?');
+    await dialog.accept();
+  });
+  await page.click('#confirmButton');
+  await expect(page.locator('#confirmResult')).toHaveText('You selected Ok');
+
+  // 4. Prompt box
+  page.once('dialog', async dialog => {
+    expect(dialog.type()).toBe('prompt');
+    expect(dialog.message()).toBe('Please enter your name');
+    await dialog.accept('Playwright Tester');
+  });
+  await page.click('#promtButton');
+  await expect(page.locator('#promptResult')).toHaveText('You entered Playwright Tester');
+});
+
+
 
 });
 
