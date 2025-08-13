@@ -1,15 +1,9 @@
-<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="7.218940999999999">
-<testsuite name="formulario.spec.js" timestamp="2025-08-12T17:15:23.769Z" hostname="chromium" tests="1" failures="0" skipped="0" time="4.29" errors="0">
-<testcase name="Pruebas de DemoQA › Comprobar Imagen" classname="formulario.spec.js" time="4.29">
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="11.854091">
+<testsuite name="formulario.spec.js" timestamp="2025-08-13T10:30:06.404Z" hostname="chromium" tests="1" failures="0" skipped="0" time="8.741" errors="0">
+<testcase name="Pruebas de DemoQA › espera a que cambie el color y que otro botón sea visible" classname="formulario.spec.js" time="8.741">
 <system-out>
-<![CDATA[📷 Estado de las imágenes:
-✅ Imagen OK   [0]: https://ad.plus/adplus-advertising.svg
-✅ Imagen OK   [1]: /images/Toolsqa.jpg
-✅ Imagen OK   [2]: /images/Toolsqa.jpg
-❌ Imagen rota [3]: /images/Toolsqa_1.jpg
-✅ Imagen OK   [4]: /images/zero-step.jpeg
-
-[[ATTACHMENT|test-results/formulario-Pruebas-de-DemoQA-Comprobar-Imagen-chromium/trace.zip]]
+<![CDATA[
+[[ATTACHMENT|test-results/formulario-Pruebas-de-Demo-1f96f--que-otro-botón-sea-visible-chromium/trace.zip]]
 ]]>
 </system-out>
 </testcase>

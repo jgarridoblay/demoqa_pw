@@ -1,6 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { assert } from 'console';
 import { verifyResultsDisplay } from '../pages/TestUtils.js';
+import path from 'path';
+import fs from 'fs';
 
 test.describe('Pruebas de DemoQA', () => {
   
@@ -186,6 +188,100 @@ test.describe('Pruebas de DemoQA', () => {
     });
 
   });
+
+  test('Test completo: Upload y Download en secuencia', async ({ page, context }) => {
+        await page.goto('https://demoqa.com/upload-download');
+        
+        // ========== PARTE 1: UPLOAD ==========
+        console.log('=== INICIANDO UPLOAD ===');
+
+        // Sube archivo de prueba
+        const filePath = path.resolve(__dirname, 'file.png');
+        const [fileChooser] = await Promise.all([
+          page.waitForEvent('filechooser'),
+          page.click('#uploadFile')
+        ]);
+        await fileChooser.setFiles(filePath);
+
+        // 3. Verificar que etiqueta aparece con el nombre del archivo subido
+        const fileSizeName = page.locator('#uploadedFilePath');
+        await expect(fileSizeName).toContainText('file.png');
+        
+        // Verificar upload
+        await page.waitForSelector('#uploadedFilePath', { state: 'visible' });
+        const uploadedPath = await page.locator('#uploadedFilePath').textContent();
+        console.log('✅ Upload completado:', uploadedPath);
+        
+        // ========== PARTE 2: DOWNLOAD ==========
+        console.log('=== INICIANDO DOWNLOAD ===');
+        
+        // Configurar y ejecutar descarga usando context
+        const downloadPromise = context.waitForEvent('download');
+        const [response] = await Promise.all([
+        page.waitForResponse(res => res.url().includes('/file.png') && res.status() === 200),
+        page.click('#downloadButton')
+      ]);
+
+        const download = await downloadPromise;
+        
+        // Guardar archivo descargado
+        const downloadPath = path.join(__dirname, 'downloads', 'downloaded-' + download.suggestedFilename());
+        const downloadDir = path.dirname(downloadPath);
+        
+        if (!fs.existsSync(downloadDir)) {
+            fs.mkdirSync(downloadDir, { recursive: true });
+        }
+        
+        await download.saveAs(downloadPath);
+        console.log('✅ Download completado:', downloadPath);
+        
+        // ========== VERIFICACIONES FINALES ==========
+        // Verificar que ambos archivos existen
+        expect(fs.existsSync(uploadFilePath)).toBeTruthy();
+        expect(fs.existsSync(downloadPath)).toBeTruthy();
+        
+        // Comparar tamaños
+        const uploadSize = fs.statSync(uploadFilePath).size;
+        const downloadSize = fs.statSync(downloadPath).size;
+        
+        console.log('📊 Estadísticas:');
+        console.log('   - Archivo subido:', uploadSize, 'bytes');
+        console.log('   - Archivo descargado:', downloadSize, 'bytes');
+        
+        // Limpiar archivos
+        [uploadFilePath, downloadPath].forEach(filePath => {
+            if (fs.existsSync(filePath)) {
+                fs.unlinkSync(filePath);
+                console.log('🧹 Eliminado:', path.basename(filePath));
+            }
+        });
+        
+        console.log('✅ Test completo finalizado exitosamente');
+    });
+
+test('Dynamic Properties', async ({ page }) => {
+  // Ir a la página
+  await page.goto('https://demoqa.com/dynamic-properties');
+
+  // --- 1. Esperar a que el botón cambie de color ---
+  const colorChangeButton = page.locator('#colorChange');
+  
+  // Guardar el color inicial
+  const initialColor = await colorChangeButton.evaluate(el => getComputedStyle(el).color);
+
+  // Esperar hasta que el color sea distinto
+  await expect.poll(async () => {
+    return await colorChangeButton.evaluate(el => getComputedStyle(el).color);
+  }).not.toBe(initialColor);
+
+  // --- 2. Esperar a que el botón "Visible After 5 Seconds" aparezca ---
+  const visibleAfterButton = page.locator('#visibleAfter');
+  await visibleAfterButton.waitFor({ state: 'visible' });
+
+  // Validar que está visible
+  await expect(visibleAfterButton).toBeVisible();
+});
+
 
 });
 
