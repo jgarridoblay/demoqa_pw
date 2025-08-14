@@ -349,7 +349,39 @@ test.describe('Pruebas de DemoQA', () => {
     console.log('Valor a comparar      :', fechaHora);
     await expect(dateTimeInput).toHaveValue(fechaHora);
   });
-  
+
+  test('Slider', async ({ page }) => {
+  await page.goto('https://demoqa.com/slider');
+
+  // Seleccionamos el slider real por clase
+  const slider = page.locator('input.range-slider');
+  const valueDisplay = page.locator('#sliderValue');
+
+  // Esperar a que el slider esté visible
+  await slider.waitFor({ state: 'visible', timeout: 10000 });
+
+  // Leer boundingBox
+  const box = await slider.boundingBox();
+  if (!box) throw new Error('No se pudo obtener boundingBox del slider');
+
+  const { x, y, width, height } = box;
+  const centerY = y + height / 2;
+
+  // Calcular posiciones
+  const pos26 = x + (width * 26 / 100);
+  const pos62 = x + (width * (62 - 1) / 100);
+
+  // Mover a 26
+  await slider.fill('26');
+  await slider.press('Enter');
+  await expect(valueDisplay).toHaveValue('26');
+
+  // Mover a 62
+  await page.mouse.move(pos62, centerY);
+  await page.mouse.down();
+  await page.mouse.up();
+  await expect(valueDisplay).toHaveValue('62');
+});
 
 
 
