@@ -1,9 +1,11 @@
-<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="16.869476">
-<testsuite name="formulario.spec.js" timestamp="2025-08-13T11:00:06.347Z" hostname="chromium" tests="1" failures="0" skipped="0" time="13.09" errors="0">
-<testcase name="Pruebas de DemoQA › Alerts" classname="formulario.spec.js" time="13.09">
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="28.282624999999996">
+<testsuite name="formulario.spec.js" timestamp="2025-08-14T09:15:49.188Z" hostname="chromium" tests="1" failures="0" skipped="0" time="19.277" errors="0">
+<testcase name="Pruebas de DemoQA › Date picker" classname="formulario.spec.js" time="19.277">
 <system-out>
-<![CDATA[
-[[ATTACHMENT|test-results/formulario-Pruebas-de-DemoQA-Alerts-chromium/trace.zip]]
+<![CDATA[Valor real en el input: August 14, 2025 8:30 AM
+Valor a comparar      : August 14, 2025 8:30 AM
+
+[[ATTACHMENT|test-results/formulario-Pruebas-de-DemoQA-Date-picker-chromium/trace.zip]]
 ]]>
 </system-out>
 </testcase>

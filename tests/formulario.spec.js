@@ -259,67 +259,97 @@ test.describe('Pruebas de DemoQA', () => {
         console.log('✅ Test completo finalizado exitosamente');
     });
 
-test('Dynamic Properties', async ({ page }) => {
-  // Ir a la página
-  await page.goto('https://demoqa.com/dynamic-properties');
+  test('Dynamic Properties', async ({ page }) => {
+    // Ir a la página
+    await page.goto('https://demoqa.com/dynamic-properties');
 
-  // --- 1. Esperar a que el botón cambie de color ---
-  const colorChangeButton = page.locator('#colorChange');
-  
-  // Guardar el color inicial
-  const initialColor = await colorChangeButton.evaluate(el => getComputedStyle(el).color);
+    // --- 1. Esperar a que el botón cambie de color ---
+    const colorChangeButton = page.locator('#colorChange');
 
-  // Esperar hasta que el color sea distinto
-  await expect.poll(async () => {
+    // Guardar el color inicial
+    const initialColor = await colorChangeButton.evaluate(el => getComputedStyle(el).color);
+
+    // Esperar hasta que el color sea distinto
+    await expect.poll(async () => {
     return await colorChangeButton.evaluate(el => getComputedStyle(el).color);
-  }).not.toBe(initialColor);
+    }).not.toBe(initialColor);
 
-  // --- 2. Esperar a que el botón "Visible After 5 Seconds" aparezca ---
-  const visibleAfterButton = page.locator('#visibleAfter');
-  await visibleAfterButton.waitFor({ state: 'visible' });
+    // --- 2. Esperar a que el botón "Visible After 5 Seconds" aparezca ---
+    const visibleAfterButton = page.locator('#visibleAfter');
+    await visibleAfterButton.waitFor({ state: 'visible' });
 
-  // Validar que está visible
-  await expect(visibleAfterButton).toBeVisible();
-});
+    // Validar que está visible
+    await expect(visibleAfterButton).toBeVisible();
+  });
 
-test('Alerts', async ({ page }) => {
-  await page.goto('https://demoqa.com/alerts');
+  test('Alerts', async ({ page }) => {
+    await page.goto('https://demoqa.com/alerts');
 
-  // 1. Alerta inmediata
-  page.once('dialog', async dialog => {
-    expect(dialog.type()).toBe('alert');
-    expect(dialog.message()).toBe('You clicked a button');
+    // 1. Alerta inmediata
+    page.once('dialog', async dialog => {
+      expect(dialog.type()).toBe('alert');
+      expect(dialog.message()).toBe('You clicked a button');
+      await dialog.accept();
+    });
+    await page.click('#alertButton');
+
+    // 2. Alerta con retardo
+    const [dialog] = await Promise.all([
+      page.waitForEvent('dialog'), // Espera a que aparezca el diálogo
+      page.click('#timerAlertButton'), // Dispara la alerta con retardo
+    ]);
+
+    expect(dialog.message()).toBe('This alert appeared after 5 seconds');
     await dialog.accept();
+
+    // 3. Confirm box
+    page.once('dialog', async dialog => {
+      expect(dialog.type()).toBe('confirm');
+      expect(dialog.message()).toBe('Do you confirm action?');
+      await dialog.accept();
+    });
+    await page.click('#confirmButton');
+    await expect(page.locator('#confirmResult')).toHaveText('You selected Ok');
+
+    // 4. Prompt box
+    page.once('dialog', async dialog => {
+      expect(dialog.type()).toBe('prompt');
+      expect(dialog.message()).toBe('Please enter your name');
+      await dialog.accept('Playwright Tester');
+    });
+    await page.click('#promtButton');
+    await expect(page.locator('#promptResult')).toHaveText('You entered Playwright Tester');
   });
-  await page.click('#alertButton');
 
-  // 2. Alerta con retardo
-const [dialog] = await Promise.all([
-  page.waitForEvent('dialog'), // Espera a que aparezca el diálogo
-  page.click('#timerAlertButton'), // Dispara la alerta con retardo
-]);
+  test('Date picker', async ({ page }) => {
+    await page.goto('https://demoqa.com/date-picker');
 
-expect(dialog.message()).toBe('This alert appeared after 5 seconds');
-await dialog.accept();
+    // --- 1. Seleccionar solo fecha ---
+    const dateInput = page.locator('#datePickerMonthYearInput');
 
-  // 3. Confirm box
-  page.once('dialog', async dialog => {
-    expect(dialog.type()).toBe('confirm');
-    expect(dialog.message()).toBe('Do you confirm action?');
-    await dialog.accept();
+    // Escribir la fecha en formato MM/DD/YYYY
+    const fecha = '05/21/2025';
+    await dateInput.fill(fecha);
+    await dateInput.press('Enter');
+
+    // Verificar valor
+    await expect(dateInput).toHaveValue(fecha);
+
+    // --- 2. Seleccionar fecha y hora ---
+    const dateTimeInput = page.locator('#dateAndTimePickerInput');
+
+    // Escribir fecha y hora en formato "Month DD, YYYY hh:mm AM/PM"
+    const fechaHora = 'August 14, 2025 8:30 AM';
+    await dateTimeInput.fill(fechaHora);
+    await dateTimeInput.press('Enter');
+
+    // Verificar valor
+    const actualValue = await dateTimeInput.inputValue();
+    console.log('Valor real en el input:', actualValue);
+    console.log('Valor a comparar      :', fechaHora);
+    await expect(dateTimeInput).toHaveValue(fechaHora);
   });
-  await page.click('#confirmButton');
-  await expect(page.locator('#confirmResult')).toHaveText('You selected Ok');
-
-  // 4. Prompt box
-  page.once('dialog', async dialog => {
-    expect(dialog.type()).toBe('prompt');
-    expect(dialog.message()).toBe('Please enter your name');
-    await dialog.accept('Playwright Tester');
-  });
-  await page.click('#promtButton');
-  await expect(page.locator('#promptResult')).toHaveText('You entered Playwright Tester');
-});
+  
 
 
 
