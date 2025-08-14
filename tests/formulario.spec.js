@@ -383,6 +383,28 @@ test.describe('Pruebas de DemoQA', () => {
   await expect(valueDisplay).toHaveValue('62');
 });
 
+test('Progress Bar', async ({ page }) => {
+  await page.goto('https://demoqa.com/progress-bar');
+
+  const startButton = page.locator('#startStopButton');
+  const progressBar = page.locator('div[role="progressbar"]');
+
+  // Iniciar la barra
+  await startButton.click();
+
+  // Esperar hasta que el valor alcance 49
+  let valor = 0;
+  while (valor < 49) {
+    const attr = await progressBar.getAttribute('aria-valuenow');
+    valor = parseInt(attr ?? '0', 10);
+    await new Promise(r => setTimeout(r, 100)); // pausa 0.1s
+  }
+
+  // Detener la barra
+  await startButton.click();
+  console.log('Barra detenida en:', valor);
+
+});
 
 
 });
