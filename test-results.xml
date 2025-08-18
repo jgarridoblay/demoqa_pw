@@ -1,9 +1,167 @@
-<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="18.160013">
-<testsuite name="formulario.spec.js" timestamp="2025-08-18T09:03:07.370Z" hostname="chromium" tests="1" failures="0" skipped="0" time="10.591" errors="0">
-<testcase name="Pruebas de DemoQA › Arrastrar la caja &quot;Drag me&quot; dentro de &quot;Drop here&quot;" classname="formulario.spec.js" time="10.591">
+<testsuites id="" name="" tests="14" failures="1" skipped="0" errors="0" time="177.49161600000002">
+<testsuite name="demoQA.spec.js" timestamp="2025-08-18T09:18:17.230Z" hostname="chromium" tests="14" failures="1" skipped="0" time="293.042" errors="0">
+<testcase name="Pruebas de DemoQA › Rellenar formulario de contacto" classname="demoQA.spec.js" time="16.496">
 <system-out>
 <![CDATA[
-[[ATTACHMENT|test-results/formulario-Pruebas-de-Demo-f2f92-rag-me-dentro-de-Drop-here--chromium/trace.zip]]
+[[ATTACHMENT|test-results/demoQA-Pruebas-de-DemoQA-Rellenar-formulario-de-contacto-chromium/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Pruebas de DemoQA › Seleccionar CheckBox" classname="demoQA.spec.js" time="18.429">
+<system-out>
+<![CDATA[Esperado:  ["commands","angular","downloads","wordFile","excelFile"]
+Resultado:  ["commands","angular","downloads","wordFile","excelFile"]
+¿Coinciden? [33mtrue[39m
+
+[[ATTACHMENT|test-results/demoQA-Pruebas-de-DemoQA-Seleccionar-CheckBox-chromium/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Pruebas de DemoQA › Seleccionar Radio Button" classname="demoQA.spec.js" time="23.275">
+<system-out>
+<![CDATA[Esperado:  ["Impressive"]
+Resultado:  ["Impressive"]
+¿Coinciden? [33mtrue[39m
+Esperado:  ["Yes"]
+Resultado:  ["Yes"]
+¿Coinciden? [33mtrue[39m
+
+[[ATTACHMENT|test-results/demoQA-Pruebas-de-DemoQA-Seleccionar-Radio-Button-chromium/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Pruebas de DemoQA › Seleccionar Tablas" classname="demoQA.spec.js" time="25.367">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results/demoQA-Pruebas-de-DemoQA-Seleccionar-Tablas-chromium/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Pruebas de DemoQA › Comprobar Imagen" classname="demoQA.spec.js" time="13.736">
+<system-out>
+<![CDATA[📷 Estado de las imágenes:
+✅ Imagen OK   [0]: https://ad.plus/adplus-advertising.svg
+✅ Imagen OK   [1]: /images/Toolsqa.jpg
+✅ Imagen OK   [2]: /images/Toolsqa.jpg
+❌ Imagen rota [3]: /images/Toolsqa_1.jpg
+✅ Imagen OK   [4]: /images/zero-step.jpeg
+
+[[ATTACHMENT|test-results/demoQA-Pruebas-de-DemoQA-Comprobar-Imagen-chromium/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Pruebas de DemoQA › Test completo: Upload y Download en secuencia" classname="demoQA.spec.js" time="33.622">
+<failure message="demoQA.spec.js:192:7 Test completo: Upload y Download en secuencia" type="FAILURE">
+<![CDATA[  [chromium] › demoQA.spec.js:192:7 › Pruebas de DemoQA › Test completo: Upload y Download en secuencia 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: page.waitForResponse: Test timeout of 30000ms exceeded.
+
+      219 |         const downloadPromise = context.waitForEvent('download');
+      220 |         const [response] = await Promise.all([
+    > 221 |         page.waitForResponse(res => res.url().includes('/file.png') && res.status() === 200),
+          |              ^
+      222 |         page.click('#downloadButton')
+      223 |       ]);
+      224 |
+        at /Users/juan/Documents/PlayWright/demoqa_pw/tests/demoQA.spec.js:221:14
+
+    Error: browserContext.waitForEvent: Test timeout of 30000ms exceeded.
+
+      217 |         
+      218 |         // Configurar y ejecutar descarga usando context
+    > 219 |         const downloadPromise = context.waitForEvent('download');
+          |                                         ^
+      220 |         const [response] = await Promise.all([
+      221 |         page.waitForResponse(res => res.url().includes('/file.png') && res.status() === 200),
+      222 |         page.click('#downloadButton')
+        at /Users/juan/Documents/PlayWright/demoqa_pw/tests/demoQA.spec.js:219:41
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/demoQA-Pruebas-de-DemoQA-T-873ca-oad-y-Download-en-secuencia-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/demoQA-Pruebas-de-DemoQA-T-873ca-oad-y-Download-en-secuencia-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../test-results/demoQA-Pruebas-de-DemoQA-T-873ca-oad-y-Download-en-secuencia-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../test-results/demoQA-Pruebas-de-DemoQA-T-873ca-oad-y-Download-en-secuencia-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[=== INICIANDO UPLOAD ===
+✅ Upload completado: C:\fakepath\file.png
+=== INICIANDO DOWNLOAD ===
+
+[[ATTACHMENT|test-results/demoQA-Pruebas-de-DemoQA-T-873ca-oad-y-Download-en-secuencia-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|test-results/demoQA-Pruebas-de-DemoQA-T-873ca-oad-y-Download-en-secuencia-chromium/error-context.md]]
+
+[[ATTACHMENT|test-results/demoQA-Pruebas-de-DemoQA-T-873ca-oad-y-Download-en-secuencia-chromium/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Pruebas de DemoQA › Dynamic Properties" classname="demoQA.spec.js" time="12.051">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results/demoQA-Pruebas-de-DemoQA-Dynamic-Properties-chromium/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Pruebas de DemoQA › Alerts" classname="demoQA.spec.js" time="16.055">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results/demoQA-Pruebas-de-DemoQA-Alerts-chromium/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Pruebas de DemoQA › Date picker" classname="demoQA.spec.js" time="32.494">
+<system-out>
+<![CDATA[Valor real en el input: August 14, 2025 8:30 AM
+Valor a comparar      : August 14, 2025 8:30 AM
+
+[[ATTACHMENT|test-results/demoQA-Pruebas-de-DemoQA-Date-picker-chromium/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Pruebas de DemoQA › Slider" classname="demoQA.spec.js" time="23.941">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results/demoQA-Pruebas-de-DemoQA-Slider-chromium/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Pruebas de DemoQA › Progress Bar" classname="demoQA.spec.js" time="23.125">
+<system-out>
+<![CDATA[Barra detenida en: [33m50[39m
+
+[[ATTACHMENT|test-results/demoQA-Pruebas-de-DemoQA-Progress-Bar-chromium/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Pruebas de DemoQA › Modificar todas las opciones del select menu correctamente" classname="demoQA.spec.js" time="20.526">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results/demoQA-Pruebas-de-DemoQA-M-e49a3-l-select-menu-correctamente-chromium/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Pruebas de DemoQA › Mover elementos" classname="demoQA.spec.js" time="20.313">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results/demoQA-Pruebas-de-DemoQA-Mover-elementos-chromium/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Pruebas de DemoQA › Arrastrar la caja &quot;Drag me&quot; dentro de &quot;Drop here&quot;" classname="demoQA.spec.js" time="13.612">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results/demoQA-Pruebas-de-DemoQA-A-bbb4f-rag-me-dentro-de-Drop-here--chromium/trace.zip]]
 ]]>
 </system-out>
 </testcase>
