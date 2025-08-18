@@ -1,10 +1,9 @@
-<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="25.580222999999997">
-<testsuite name="formulario.spec.js" timestamp="2025-08-14T10:31:15.288Z" hostname="chromium" tests="1" failures="0" skipped="0" time="16.899" errors="0">
-<testcase name="Pruebas de DemoQA › Progress Bar" classname="formulario.spec.js" time="16.899">
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="24.50626199999999">
+<testsuite name="formulario.spec.js" timestamp="2025-08-18T08:49:16.335Z" hostname="chromium" tests="1" failures="0" skipped="0" time="15.071" errors="0">
+<testcase name="Pruebas de DemoQA › Mover elementos" classname="formulario.spec.js" time="15.071">
 <system-out>
-<![CDATA[Barra detenida en: [33m49[39m
-
-[[ATTACHMENT|test-results/formulario-Pruebas-de-DemoQA-Progress-Bar-chromium/trace.zip]]
+<![CDATA[
+[[ATTACHMENT|test-results/formulario-Pruebas-de-DemoQA-Mover-elementos-chromium/trace.zip]]
 ]]>
 </system-out>
 </testcase>

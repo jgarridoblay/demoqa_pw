@@ -407,6 +407,71 @@ test('Progress Bar', async ({ page }) => {
 });
 
 
+test('Modificar todas las opciones del select menu correctamente', async ({ page }) => {
+  await page.goto('https://demoqa.com/select-menu');
+
+  // -----------------------------
+  // 1. Select clásico
+  // -----------------------------
+  const oldSelect = page.locator('#oldSelectMenu');
+  await oldSelect.selectOption('2'); // Blue
+  await expect(oldSelect).toHaveValue('2');
+
+  // -----------------------------
+  // 2. React-select (Select One)
+  // -----------------------------
+  const selectOne = page.locator('.css-1hwfws3', { hasText: 'Select Option' });
+  await selectOne.click();
+  const optionSelectOne = page.getByText('Group 2, option 1', { exact: true });
+  await optionSelectOne.click();
+  const selectedValueOne = page.locator('#withOptGroup .css-1uccc91-singleValue');
+  await expect(selectedValueOne).toHaveText('Group 2, option 1', { timeout: 5000 });
+
+  // -----------------------------
+  // 3. React-select (Select Title)
+  // -----------------------------
+  const selectTitle = page.locator('.css-1hwfws3', { hasText: 'Select Title' });
+  await selectTitle.click();
+  const optionSelectTitle = page.getByText('Mrs.', { exact: true });
+  await optionSelectTitle.click();
+  const selectedValueTitle = page.locator('#selectOne .css-1uccc91-singleValue');
+  await expect(selectedValueTitle).toHaveText('Mrs.', { timeout: 5000 });
+
+  // -----------------------------
+  // 4. React-select multi-select (Cars)
+  // -----------------------------
+  const multiSelect = page.locator('.css-yk16xz-control', { hasText: 'Select...' });
+  await multiSelect.click();
+
+
+  // Seleccionar las opciones
+  const optionGreen = page.getByText('Green', { exact: true });
+  const optionBlue = page.getByText('Blue', { exact: true });
+  await optionGreen.nth(1).click();
+  await optionBlue.nth(1).click();
+
+  // Validar que cada opción aparece como seleccionada
+  const selectedVolvo = page.locator('.css-1rhbuit-multiValue').filter({ hasText: 'Green' });
+  const selectedSaab = page.locator('.css-1rhbuit-multiValue').filter({ hasText: 'Blue' });
+  await expect(selectedVolvo).toHaveCount(1);
+  await expect(selectedSaab).toHaveCount(1);
+});
+
+test('Mover elementos', async ({ page }) => {
+  await page.goto('https://demoqa.com/sortable');
+
+  // Localizamos el elemento "Two" y el que actualmente está en la quinta posición ("Five")
+  const itemTwo = page.locator('div#demo-tabpane-list div.list-group-item', { hasText: 'Two' });
+  const itemFive = page.locator('div#demo-tabpane-list div.list-group-item', { hasText: 'Five' });
+
+  // Arrastrar "Two" hasta la posición de "Five"
+  await itemTwo.dragTo(itemFive);
+
+  // Validar que "Two" ahora es el quinto elemento
+  const items = page.locator('div#demo-tabpane-list div.list-group-item');
+  await expect(items.nth(4)).toHaveText('Two'); // posición 4 = quinto elemento (0-index)
+});
+
 });
 
 
