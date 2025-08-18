@@ -472,6 +472,20 @@ test('Mover elementos', async ({ page }) => {
   await expect(items.nth(4)).toHaveText('Two'); // posición 4 = quinto elemento (0-index)
 });
 
+test('Arrastrar la caja "Drag me" dentro de "Drop here"', async ({ page }) => {
+  await page.goto('https://demoqa.com/droppable');
+
+  // Localizadores de los elementos
+  const dragMe = page.locator('#draggable');
+  const dropHere = page.locator('#droppable').nth(0);
+
+  // Acción: arrastrar y soltar
+  await dragMe.dragTo(dropHere);
+
+  // Validar que el texto del drop cambia a "Dropped!"
+  await expect(dropHere).toHaveText('Dropped!');
+});
+
 });
 
 

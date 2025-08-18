@@ -1,9 +1,9 @@
-<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="24.50626199999999">
-<testsuite name="formulario.spec.js" timestamp="2025-08-18T08:49:16.335Z" hostname="chromium" tests="1" failures="0" skipped="0" time="15.071" errors="0">
-<testcase name="Pruebas de DemoQA › Mover elementos" classname="formulario.spec.js" time="15.071">
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="18.160013">
+<testsuite name="formulario.spec.js" timestamp="2025-08-18T09:03:07.370Z" hostname="chromium" tests="1" failures="0" skipped="0" time="10.591" errors="0">
+<testcase name="Pruebas de DemoQA › Arrastrar la caja &quot;Drag me&quot; dentro de &quot;Drop here&quot;" classname="formulario.spec.js" time="10.591">
 <system-out>
 <![CDATA[
-[[ATTACHMENT|test-results/formulario-Pruebas-de-DemoQA-Mover-elementos-chromium/trace.zip]]
+[[ATTACHMENT|test-results/formulario-Pruebas-de-Demo-f2f92-rag-me-dentro-de-Drop-here--chromium/trace.zip]]
 ]]>
 </system-out>
 </testcase>
